@@ -1,0 +1,150 @@
+#type definition (schema)
+#Scalar type (single discrete value): String, Boolean, Int, Float, ID(unique identifier, number will be convert to string)
+# ! mean cannot return null value
+# mutation can only use scalar data type
+
+# the below import comment will be parsed by graphql-yoga
+# because schema doesnt support import statement so it need to hide behind comment
+
+# import UserOrderByInput from './generated/prisma/prisma.graphql'
+
+type Query {
+  me: User!
+  post(id: ID!): Post!
+  myPosts(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UserOrderByInput
+  ): [Post!]!
+  add(numbers: [Float!]!): Float!
+  users(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UserOrderByInput
+  ): [User!]! # first x post, skip y post, after z ID
+  posts(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UserOrderByInput
+  ): [Post!]!
+  comments(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UserOrderByInput
+  ): [Comment!]!
+}
+
+type Mutation {
+  createUser(data: CreateUserInput!): AuthPayload!
+  login(data: LoginUserInput!): AuthPayload!
+  deleteUser: User!
+  updateUser(data: UpdateUserInput!): User!
+  createPost(data: createPostInput): Post!
+  deletePost(id: ID!): Post!
+  updatePost(id: ID!, data: updatePostInput!): Post!
+  createComment(data: createCommentInput): Comment!
+  deleteComment(id: ID!): Comment!
+  updateComment(id: ID!, data: updateCommentInput!): Comment!
+}
+
+type Subscription {
+  comment(postId: ID!): CommentSubscriptionPayload!
+  post: PostSubscriptionPayload!
+  myPost: PostSubscriptionPayload!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+}
+
+input createPostInput {
+  title: String!
+  body: String!
+  published: Boolean!
+}
+
+input updatePostInput {
+  title: String
+  body: String
+  published: Boolean
+}
+
+input createCommentInput {
+  text: String!
+  post: ID!
+}
+
+input updateCommentInput {
+  text: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String
+  posts: [Post!]!
+  password: String! # this should be hidden though
+  comments: [Comment!]!
+  updatedAt: String!
+  createdAt: String!
+}
+type Post {
+  id: ID!
+  title: String!
+  body: String!
+  published: Boolean!
+  author: User!
+  comments: [Comment!]!
+  updatedAt: String!
+  createdAt: String!
+}
+type Comment {
+  id: ID!
+  text: String!
+  author: User!
+  post: Post!
+  updatedAt: String!
+  createdAt: String!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+type PostSubscriptionPayload {
+  mutation: MutationType!
+  node: Post
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+}

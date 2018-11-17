@@ -1,0 +1,7 @@
+endpoint: http://localhost:4466/review/default # service name is review, stage name is default
+datamodel: datamodel.graphql
+generate:
+  - generator: javascript-client
+    output: ../src/generated/prisma-review-website
+  - generator: graphql-schema
+    output: ../src/generated/prisma-review-website
