@@ -6,7 +6,7 @@
 # the below import comment will be parsed by graphql-yoga
 # because schema doesnt support import statement so it need to hide behind comment
 
-# import UserOrderByInput from './generated/prisma/prisma.graphql'
+# import UserOrderByInput, PostOrderByInput, CommentOrderByInput from './generated/prisma/prisma.graphql'
 
 type Query {
   me: User!
@@ -16,7 +16,7 @@ type Query {
     first: Int
     skip: Int
     after: String
-    orderBy: UserOrderByInput
+    orderBy: PostOrderByInput
   ): [Post!]!
   add(numbers: [Float!]!): Float!
   users(
@@ -31,14 +31,14 @@ type Query {
     first: Int
     skip: Int
     after: String
-    orderBy: UserOrderByInput
+    orderBy: PostOrderByInput
   ): [Post!]!
   comments(
     query: String
     first: Int
     skip: Int
     after: String
-    orderBy: UserOrderByInput
+    orderBy: CommentOrderByInput
   ): [Comment!]!
 }
 
@@ -47,12 +47,12 @@ type Mutation {
   login(data: LoginUserInput!): AuthPayload!
   deleteUser: User!
   updateUser(data: UpdateUserInput!): User!
-  createPost(data: createPostInput): Post!
+  createPost(data: CreatePostInput): Post!
   deletePost(id: ID!): Post!
-  updatePost(id: ID!, data: updatePostInput!): Post!
-  createComment(data: createCommentInput): Comment!
+  updatePost(id: ID!, data: UpdatePostInput!): Post!
+  createComment(data: CreateCommentInput): Comment!
   deleteComment(id: ID!): Comment!
-  updateComment(id: ID!, data: updateCommentInput!): Comment!
+  updateComment(id: ID!, data: UpdateCommentInput!): Comment!
 }
 
 type Subscription {
@@ -83,24 +83,24 @@ input UpdateUserInput {
   password: String
 }
 
-input createPostInput {
+input CreatePostInput {
   title: String!
   body: String!
   published: Boolean!
 }
 
-input updatePostInput {
+input UpdatePostInput {
   title: String
   body: String
   published: Boolean
 }
 
-input createCommentInput {
+input CreateCommentInput {
   text: String!
   post: ID!
 }
 
-input updateCommentInput {
+input UpdateCommentInput {
   text: String
 }
 

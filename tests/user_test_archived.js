@@ -13,8 +13,8 @@ test('should return first name when given full name', () => {
 })
 
 test('Should return first name when given first name', () => {
-  const firstName = getFirstName('Jen')
-  expect(firstName).toBe('Jen')
+  const firstName = getFirstName('Ken')
+  expect(firstName).toBe('Ken')
 })
 
 test('Should reject password shorter than 8 characters', () => {
