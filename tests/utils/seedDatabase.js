@@ -57,7 +57,7 @@ const commentTwo = {
 }
 
 const seedDatabase = async () => {
-  jest.setTimeout(100000)
+  jest.setTimeout(100000) // need to use this because this seedDatabase is called by jest beforeEach
   //delete test data
   await prisma.mutation.deleteManyComments()
   await prisma.mutation.deleteManyPosts()
