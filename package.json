@@ -16,6 +16,13 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "apollo-boost": "^0.1.21",
+    "apollo-cache-inmemory": "^1.3.10",
+    "apollo-client": "^2.4.6",
+    "apollo-link": "^1.2.3",
+    "apollo-link-error": "^1.1.1",
+    "apollo-link-http": "^1.5.5",
+    "apollo-link-ws": "^1.0.9",
+    "apollo-utilities": "^1.0.25",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -23,12 +30,13 @@
     "bcryptjs": "^2.4.3",
     "cross-fetch": "^2.2.3",
     "env-cmd": "^8.0.2",
-    "graphql": "^14.0.2",
+    "graphql": "^0.13.2",
     "graphql-cli": "^2.17.0",
     "graphql-yoga": "^1.16.7",
     "jest": "^23.6.0",
     "jsonwebtoken": "^8.4.0",
-    "prisma-binding": "^2.1.6"
+    "prisma-binding": "^2.2.1",
+    "subscriptions-transport-ws": "^0.9.15"
   },
   "devDependencies": {
     "nodemon": "^1.18.6"
