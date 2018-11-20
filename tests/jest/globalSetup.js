@@ -1,4 +1,4 @@
-require('babel-register')
+require('babel-register') // allow you to use babel
 require('@babel/polyfill/noConflict')
 //import this to use babel for code in server.js, need to import it on top entry point, just like dotenv
 //this exported function will run before all tests finish
