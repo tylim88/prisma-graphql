@@ -12,32 +12,32 @@ import { subscribeToComments, deleteComment } from './utils/operations'
 beforeEach(seedDatabase)
 const client = getClient()
 
-// test('Should delete own comment', async () => {
-//   const client = getClient(userOne.jwt)
-//   const variables = {
-//     id: commentOne.comment.id,
-//   }
-//   await client.mutate({ mutation: deleteComment, variables })
+test('Should delete own comment', async () => {
+  const client = getClient(userOne.jwt)
+  const variables = {
+    id: commentOne.comment.id,
+  }
+  await client.mutate({ mutation: deleteComment, variables })
 
-//   const commentExist = await prisma.exists.Comment({
-//     id: commentOne.comment.id,
-//   })
+  const commentExist = await prisma.exists.Comment({
+    id: commentOne.comment.id,
+  })
 
-//   expect(commentExist).toBe(false)
-// })
+  expect(commentExist).toBe(false)
+})
 
-// test('Should not able to delete others comment', async () => {
-//   const client = getClient(userOne.jwt)
-//   const variables = {
-//     id: commentTwo.comment.id,
-//   }
+test('Should not able to delete others comment', async () => {
+  const client = getClient(userOne.jwt)
+  const variables = {
+    id: commentTwo.comment.id,
+  }
 
-//   expect(
-//     client.mutate({ mutation: deleteComment, variables })
-//   ).rejects.toThrow() //toThrowError() also can
-// })
+  expect(
+    client.mutate({ mutation: deleteComment, variables })
+  ).rejects.toThrow() //toThrowError() also can
+})
 
-test('Should subscribe to comment for a post', async done => {
+test('Should subscribe to comment for a post', async (done) => {
   const variables = { postId: postOne.post.id }
 
   client.subscribe({ query: subscribeToComments, variables }).subscribe({
